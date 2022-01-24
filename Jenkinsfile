@@ -4,14 +4,14 @@ pipeline {
       dockerimagename = "kusumaningrat16/backend-node"
       dockerImage = ""
   }
-  `
+  
   agent any
 
   stages {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/Kusuma16/backend-node'
+        git credentialsId: 'gitauth', url: 'https://github.com/Kusuma16/backend-node'
       }
     }
 
