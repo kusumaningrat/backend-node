@@ -1,23 +1,47 @@
-version: "3.9"
+pipeline {
 
-services:
-  jenkins:
-    image: jenkins/jenkins:latest
-    container_name: jenkins-server
-    hostname: jenkins-server
-    privileged: true
-    user: root
-    ports:
-      - "5000:5000"
-      - "8080:8080"
-    networks:
-      - jenkins-net
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+  environment {
+      dockerimagename = "kusumaningrat16/backend-node"
+      dockerImage = ""
+  }
 
-volumes:
-  jenkins-data:
+  agent any
 
-networks:
-  jenkins-net:
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/Kusuma16/backend-node'
+      }
+    }
+
+    stage('Buil Image') {
+      steps {
+        script {
+          dockerImage = docker.build dockerimagename
+        }
+      }
+    }
+
+    stage('Pushing Image') {
+      environment {
+        registryCredential = 'dockerlogin'
+      }
+      steps {
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+            dockerImage.push("latest")
+          }
+        }
+      }
+    }
+
+    stage('Deploying App to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
+        }
+      }
+    }
+  }
+}
