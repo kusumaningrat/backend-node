@@ -10,8 +10,8 @@ pipeline {
   stages {
 
     stage('Checkout Source') {
-      steps {z`
-        git 'https://gitlab.com/Kusuma16/backend.git'
+      steps {
+        git 'https://github.com/Kusuma16/backend-node'
       }
     }
 
