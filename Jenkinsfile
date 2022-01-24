@@ -4,7 +4,7 @@ pipeline {
       dockerimagename = "kusumaningrat16/backend-node"
       dockerImage = ""
   }
-
+  `
   agent any
 
   stages {
