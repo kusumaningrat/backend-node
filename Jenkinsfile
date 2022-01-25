@@ -40,7 +40,7 @@ pipeline {
       steps {
         withKubeConfig([
           namespace: 'default',
-          caCertificates: 'certificates'
+          caCertificate: 'certificates'
         ])
       }
     }
