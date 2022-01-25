@@ -38,9 +38,7 @@ pipeline {
 
     stage('Deploying App to Kubernetes') {
       steps {
-        withKubeConfig(namespace: 'default') {
-          sh 'kubectl apply -f deploymentservice.yml'
-        }
+        sh 'kubectl apply -f deploymentservice.yml'
       }
     }
   }
