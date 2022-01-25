@@ -38,12 +38,10 @@ pipeline {
 
     stage('Deploying App to Kubernetes') {
       steps {
-        script {
-          withKubeConfig([
-            namespace: 'default',
-            caCertificates: 'certificates'
-            ])
-        }
+        withKubeConfig([
+          namespace: 'default',
+          caCertificates: 'certificates'
+        ])
       }
     }
   }
