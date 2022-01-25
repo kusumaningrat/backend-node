@@ -37,8 +37,14 @@ pipeline {
     }
 
     stage('Deploying App to Kubernetes') {
-      withKubeConfig([namespace: 'default', 
-                      caCertificate: 'certificates'])
+      steps {
+        withKubeConfig([
+          namespace: 'default',
+          caCertificate: 'certificates'
+        ]) {
+          sh 'kubectl apply -f deploymentservice.yml'
+        }
+      }
     }
   }
 }
