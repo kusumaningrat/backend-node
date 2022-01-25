@@ -41,7 +41,9 @@ pipeline {
         withKubeConfig([
           namespace: 'default',
           caCertificate: 'certificates'
-        ])
+        ]) {
+          sh 'kubectl apply -f deploymentservice.yml'
+        }
       }
     }
   }
