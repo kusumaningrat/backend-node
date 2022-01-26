@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Backend
+  name: backend
   labels:
     app: nodejs-backend
 spec:
@@ -23,7 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Backend-Service
+  name: backend-service
 spec:
   selector:
     app: nodejs-backend
